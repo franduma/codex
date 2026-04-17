@@ -175,6 +175,24 @@ body.erp-theme .erp-check-list {
   padding-left: 1.2rem;
 }
 
+body.erp-theme .erp-hero-panel {
+  color: var(--erp-text);
+}
+
+body.erp-theme .erp-hero-panel h2 {
+  margin-top: .1rem;
+  margin-bottom: .4rem;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+body.erp-theme .erp-hero-panel p {
+  color: #2c414b;
+}
+
+body.erp-theme .erp-hero-panel :where(input, select, textarea, button) {
+  max-width: 100%;
+}
+
 body.erp-theme .erp-price {
   color: var(--erp-green-dark);
   font-weight: 700;
