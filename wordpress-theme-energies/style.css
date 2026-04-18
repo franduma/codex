@@ -74,8 +74,15 @@ body.erp-theme .erp-menu {
   padding: 0;
   list-style: none;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-menu > li {
+  display: inline-flex;
+  align-items: center;
 }
 
 body.erp-theme .erp-menu a {
@@ -100,6 +107,26 @@ body.erp-theme .erp-site-header .menu {
   display: flex;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-site-header nav ul.erp-menu,
+body.erp-theme .erp-site-header nav ul.menu {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.erp-theme .erp-site-header nav .erp-menu li,
+body.erp-theme .erp-site-header nav .menu li {
+  display: inline-flex !important;
+  float: none !important;
+  clear: none !important;
+  width: auto !important;
 }
 
 body.erp-theme .erp-site-header .menu a {
@@ -201,6 +228,31 @@ body.erp-theme .erp-language-switcher {
   min-height: 2.2rem;
 }
 
+body.erp-theme .erp-language-menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+body.erp-theme .erp-language-item a {
+  display: inline-block;
+  padding: .2rem .5rem;
+  border-radius: 999px;
+  border: 1px solid var(--erp-border);
+  color: var(--erp-text);
+  font-size: .85rem;
+  line-height: 1.2;
+}
+
+body.erp-theme .erp-language-item.is-current a {
+  background: #edf5f1;
+  border-color: #bfd3c5;
+  color: var(--erp-green-dark);
+}
+
 body.erp-theme .erp-language-switcher a {
   color: var(--erp-text);
 }
@@ -211,6 +263,7 @@ body.erp-theme .erp-check-list {
 }
 
 body.erp-theme .erp-hero-panel {
+  background: var(--erp-white);
   color: var(--erp-text);
 }
 
@@ -245,6 +298,15 @@ body.erp-theme .erp-price {
 }
 
 body.erp-theme .erp-quote-card { border: 1px solid #bfd3c5; }
+
+body.erp-theme .erp-shop-intro {
+  margin-bottom: 1.2rem;
+}
+
+body.erp-theme .erp-woocommerce-card .erp-shop-title {
+  margin-top: 0;
+  margin-bottom: .9rem;
+}
 
 /* WooCommerce styles are scoped under theme wrapper to reduce plugin collisions. */
 body.erp-theme .woocommerce ul.products li.product,
