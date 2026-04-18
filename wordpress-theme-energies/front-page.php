@@ -10,25 +10,25 @@ get_header();
 <section class="erp-hero">
     <div class="erp-container erp-hero-grid">
         <div>
-            <p class="erp-badge"><?php esc_html_e('Installateur & boutique photovoltaïque', 'erp-theme'); ?></p>
-            <h1><?php esc_html_e('Une interface premium pour vendre vos solutions solaires', 'erp-theme'); ?></h1>
-            <p><?php esc_html_e('Mettez en valeur vos panneaux, onduleurs, batteries et régulateurs MPPT avec un design professionnel orienté confiance et conversion.', 'erp-theme'); ?></p>
+            <p class="erp-badge"><?php echo esc_html(erp_i18n('Installateur & boutique photovoltaïque', 'Installer & photovoltaic store')); ?></p>
+            <h1><?php echo esc_html(erp_i18n('Une interface premium pour vendre vos solutions solaires', 'A premium interface to sell your solar solutions')); ?></h1>
+            <p><?php echo esc_html(erp_i18n('Mettez en valeur vos panneaux, onduleurs, batteries et régulateurs MPPT avec un design professionnel orienté confiance et conversion.', 'Showcase your panels, inverters, batteries and MPPT controllers with a professional design focused on trust and conversion.')); ?></p>
             <div class="erp-hero-actions">
-                <a class="erp-btn" href="#produits"><?php esc_html_e('Voir la boutique', 'erp-theme'); ?></a>
-                <a class="erp-btn erp-btn-outline" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Configurer mon besoin', 'erp-theme'); ?></a>
+                <a class="erp-btn" href="#produits"><?php echo esc_html(erp_i18n('Voir la boutique', 'Browse the shop')); ?></a>
+                <a class="erp-btn erp-btn-outline" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php echo esc_html(erp_i18n('Configurer mon besoin', 'Configure my needs')); ?></a>
             </div>
         </div>
 
         <aside class="erp-hero-panel erp-card">
-            <h3><?php esc_html_e('Démarrage rapide', 'erp-theme'); ?></h3>
-            <p><?php esc_html_e('Guidez vos visiteurs vers une demande de devis claire en 3 étapes.', 'erp-theme'); ?></p>
+            <h3><?php echo esc_html(erp_i18n('Démarrage rapide', 'Quick start')); ?></h3>
+            <p><?php echo esc_html(erp_i18n('Guidez vos visiteurs vers une demande de devis claire en 3 étapes.', 'Guide your visitors to a clear quote request in 3 steps.')); ?></p>
             <ul class="erp-check-list">
-                <li><?php esc_html_e('1. Ils découvrent vos produits solaires', 'erp-theme'); ?></li>
-                <li><?php esc_html_e('2. Ils ouvrent le configurateur dédié', 'erp-theme'); ?></li>
-                <li><?php esc_html_e('3. Ils envoient une demande qualifiée', 'erp-theme'); ?></li>
+                <li><?php echo esc_html(erp_i18n('1. Ils découvrent vos produits solaires', '1. They discover your solar products')); ?></li>
+                <li><?php echo esc_html(erp_i18n('2. Ils ouvrent le configurateur dédié', '2. They open the dedicated configurator')); ?></li>
+                <li><?php echo esc_html(erp_i18n('3. Ils envoient une demande qualifiée', '3. They submit a qualified request')); ?></li>
             </ul>
             <div class="erp-hero-panel-actions">
-                <a class="erp-btn" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Ouvrir le configurateur', 'erp-theme'); ?></a>
+                <a class="erp-btn" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php echo esc_html(erp_i18n('Ouvrir le configurateur', 'Open the configurator')); ?></a>
             </div>
         </aside>
     </div>
@@ -36,19 +36,19 @@ get_header();
 
 <section class="erp-section erp-section-soft">
     <div class="erp-container">
-        <h2><?php esc_html_e('Vos univers produits', 'erp-theme'); ?></h2>
+        <h2><?php echo esc_html(erp_i18n('Vos univers produits', 'Your product categories')); ?></h2>
         <div class="erp-grid">
-            <article class="erp-card"><h3><?php esc_html_e('Panneaux solaires', 'erp-theme'); ?></h3><p><?php esc_html_e('Monocristallins, bifaciaux, kits toiture et sol.', 'erp-theme'); ?></p></article>
-            <article class="erp-card"><h3><?php esc_html_e('Onduleurs', 'erp-theme'); ?></h3><p><?php esc_html_e('String, hybrides, micro-onduleurs et monitoring.', 'erp-theme'); ?></p></article>
-            <article class="erp-card"><h3><?php esc_html_e('Batteries', 'erp-theme'); ?></h3><p><?php esc_html_e('Stockage résidentiel et tertiaire longue durée.', 'erp-theme'); ?></p></article>
-            <article class="erp-card"><h3><?php esc_html_e('Régulateurs MPPT', 'erp-theme'); ?></h3><p><?php esc_html_e('Pilotage intelligent pour un rendement maximal.', 'erp-theme'); ?></p></article>
+            <article class="erp-card"><h3><?php echo esc_html(erp_i18n('Panneaux solaires', 'Solar panels')); ?></h3><p><?php echo esc_html(erp_i18n('Monocristallins, bifaciaux, kits toiture et sol.', 'Monocrystalline, bifacial, roof and ground kits.')); ?></p></article>
+            <article class="erp-card"><h3><?php echo esc_html(erp_i18n('Onduleurs', 'Inverters')); ?></h3><p><?php echo esc_html(erp_i18n('String, hybrides, micro-onduleurs et monitoring.', 'String, hybrid, microinverters and monitoring.')); ?></p></article>
+            <article class="erp-card"><h3><?php echo esc_html(erp_i18n('Batteries', 'Batteries')); ?></h3><p><?php echo esc_html(erp_i18n('Stockage résidentiel et tertiaire longue durée.', 'Long-duration storage for residential and commercial use.')); ?></p></article>
+            <article class="erp-card"><h3><?php echo esc_html(erp_i18n('Régulateurs MPPT', 'MPPT controllers')); ?></h3><p><?php echo esc_html(erp_i18n('Pilotage intelligent pour un rendement maximal.', 'Smart control for maximum performance.')); ?></p></article>
         </div>
     </div>
 </section>
 
 <section id="produits" class="erp-section">
     <div class="erp-container">
-        <h2><?php esc_html_e('Produits en vedette', 'erp-theme'); ?></h2>
+        <h2><?php echo esc_html(erp_i18n('Produits en vedette', 'Featured products')); ?></h2>
         <?php if (class_exists('WooCommerce')) : ?>
             <div class="erp-woocommerce-shortcode-wrap">
                 <?php echo do_shortcode('[products limit="8" columns="4" orderby="date" order="DESC"]'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -69,7 +69,7 @@ get_header();
                     wp_reset_postdata();
                 else :
                     ?>
-                    <p><?php esc_html_e('Ajoutez vos premiers produits solaires depuis l’administration WordPress.', 'erp-theme'); ?></p>
+                    <p><?php echo esc_html(erp_i18n('Ajoutez vos premiers produits solaires depuis l’administration WordPress.', 'Add your first solar products from the WordPress admin dashboard.')); ?></p>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

@@ -253,3 +253,34 @@ function erp_add_body_class(array $classes): array {
     return $classes;
 }
 add_filter('body_class', 'erp_add_body_class');
+
+/**
+ * Detect if current language/locale is English.
+ */
+function erp_is_english_language(): bool {
+    if (function_exists('pll_current_language')) {
+        $language = (string) pll_current_language('slug');
+        if ($language !== '') {
+            return str_starts_with($language, 'en');
+        }
+    }
+
+    if (defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE !== '') {
+        return str_starts_with((string) ICL_LANGUAGE_CODE, 'en');
+    }
+
+    $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+    return str_starts_with((string) $locale, 'en');
+}
+
+/**
+ * Return FR or EN copy depending on active language.
+ */
+function erp_i18n(string $french, string $english): string {
+    if (erp_is_english_language()) {
+        return $english;
+    }
+
+    return $french;
+}
