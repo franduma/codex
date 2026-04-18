@@ -1,3 +1,4 @@
+#
 # Energies Renouvelables Pro (thème WordPress)
 
 Thème orienté **interface graphique professionnelle** pour un site solaire avec WooCommerce déjà en place.
