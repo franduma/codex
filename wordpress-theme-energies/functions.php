@@ -38,12 +38,12 @@ function erp_theme_assets(): void {
 add_action('wp_enqueue_scripts', 'erp_theme_assets');
 
 function erp_primary_menu_fallback(): void {
-    wp_page_menu([
-        'menu_class'  => 'erp-menu',
-        'show_home'   => false,
-        'depth'       => 1,
-        'echo'        => true,
+    echo '<ul class="erp-menu">';
+    wp_list_pages([
+        'title_li' => '',
+        'depth'    => 1,
     ]);
+    echo '</ul>';
 }
 
 function erp_customize_register(WP_Customize_Manager $wp_customize): void {

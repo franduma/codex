@@ -109,6 +109,12 @@ body.erp-theme .erp-site-header .menu {
   gap: .9rem;
 }
 
+body.erp-theme .erp-site-header nav .erp-menu li,
+body.erp-theme .erp-site-header nav .menu li {
+  float: none;
+  width: auto;
+}
+
 body.erp-theme .erp-site-header .menu a {
   display: inline-block;
   color: var(--erp-text);
