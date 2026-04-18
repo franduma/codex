@@ -74,8 +74,15 @@ body.erp-theme .erp-menu {
   padding: 0;
   list-style: none;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-menu > li {
+  display: inline-flex;
+  align-items: center;
 }
 
 body.erp-theme .erp-menu a {
@@ -100,6 +107,12 @@ body.erp-theme .erp-site-header .menu {
   display: flex;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-site-header nav .erp-menu li,
+body.erp-theme .erp-site-header nav .menu li {
+  float: none;
+  width: auto;
 }
 
 body.erp-theme .erp-site-header .menu a {
@@ -211,6 +224,7 @@ body.erp-theme .erp-check-list {
 }
 
 body.erp-theme .erp-hero-panel {
+  background: var(--erp-white);
   color: var(--erp-text);
 }
 
