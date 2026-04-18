@@ -20,12 +20,16 @@ get_header();
         </div>
 
         <aside class="erp-hero-panel erp-card">
-            <h3><?php esc_html_e('Pourquoi ce thème ?', 'erp-theme'); ?></h3>
+            <h3><?php esc_html_e('Démarrage rapide', 'erp-theme'); ?></h3>
+            <p><?php esc_html_e('Guidez vos visiteurs vers une demande de devis claire en 3 étapes.', 'erp-theme'); ?></p>
             <ul class="erp-check-list">
-                <li><?php esc_html_e('Design moderne compatible WooCommerce', 'erp-theme'); ?></li>
-                <li><?php esc_html_e('Page dédiée au configurateur solaire', 'erp-theme'); ?></li>
-                <li><?php esc_html_e('Parcours clair pour générer des demandes qualifiées', 'erp-theme'); ?></li>
+                <li><?php esc_html_e('1. Ils découvrent vos produits solaires', 'erp-theme'); ?></li>
+                <li><?php esc_html_e('2. Ils ouvrent le configurateur dédié', 'erp-theme'); ?></li>
+                <li><?php esc_html_e('3. Ils envoient une demande qualifiée', 'erp-theme'); ?></li>
             </ul>
+            <div class="erp-hero-panel-actions">
+                <a class="erp-btn" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Ouvrir le configurateur', 'erp-theme'); ?></a>
+            </div>
         </aside>
     </div>
 </section>

@@ -199,6 +199,10 @@ body.erp-theme .erp-hero-panel p {
   color: #2c414b;
 }
 
+body.erp-theme .erp-hero-panel-actions {
+  margin-top: .9rem;
+}
+
 body.erp-theme .erp-hero-panel :where(input, select, textarea, button) {
   max-width: 100%;
 }
