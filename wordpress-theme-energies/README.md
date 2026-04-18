@@ -186,6 +186,20 @@ Si la page **Shop/Boutique** a été supprimée, WooCommerce perd sa page catalo
 5. Va dans **Réglages > Permaliens** et clique **Enregistrer** (flush des permaliens).
 6. Vide le cache (plugin + serveur + CDN) puis recharge.
 
+### Cas multilingue (très fréquent)
+Si Polylang/WPML/GTranslate est actif, il faut vérifier la page Boutique par langue :
+1. Vérifie qu’il existe une page **Shop/Boutique** pour FR et EN (traduction liée, pas juste une copie non assignée).
+2. Vérifie que WooCommerce pointe vers la bonne page boutique dans la langue courante.
+3. Si WPML + WooCommerce Multilingual est actif, valide l’association des pages WooCommerce dans le module multilingue WooCommerce.
+4. Teste en navigation privée avec URL directe de la boutique FR puis EN.
+
+### Test de diagnostic rapide
+Pour confirmer que les produits existent bien côté front :
+1. Crée une page temporaire.
+2. Ajoute le shortcode WooCommerce :
+   `[products limit="8" columns="4" orderby="date" order="DESC"]`
+3. Si les produits s’affichent ici mais pas sur Shop, le problème vient de l’assignation page boutique / langue et non des produits eux-mêmes.
+
 ### Option sûre : régénérer les pages WooCommerce officielles
 Dans **WooCommerce > Statut > Outils**, utilise l’outil pour créer les pages par défaut WooCommerce (Shop, Cart, Checkout, My account) si nécessaire.
 
