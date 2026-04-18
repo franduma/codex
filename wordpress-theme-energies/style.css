@@ -299,6 +299,10 @@ body.erp-theme .erp-price {
 
 body.erp-theme .erp-quote-card { border: 1px solid #bfd3c5; }
 
+body.erp-theme .erp-shop-intro {
+  margin-bottom: 1.2rem;
+}
+
 /* WooCommerce styles are scoped under theme wrapper to reduce plugin collisions. */
 body.erp-theme .woocommerce ul.products li.product,
 body.erp-theme .woocommerce-page ul.products li.product {
