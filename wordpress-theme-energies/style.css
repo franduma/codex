@@ -74,8 +74,15 @@ body.erp-theme .erp-menu {
   padding: 0;
   list-style: none;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-menu > li {
+  display: inline-flex;
+  align-items: center;
 }
 
 body.erp-theme .erp-menu a {
@@ -100,6 +107,26 @@ body.erp-theme .erp-site-header .menu {
   display: flex;
   align-items: center;
   gap: .9rem;
+}
+
+body.erp-theme .erp-site-header nav ul.erp-menu,
+body.erp-theme .erp-site-header nav ul.menu {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.erp-theme .erp-site-header nav .erp-menu li,
+body.erp-theme .erp-site-header nav .menu li {
+  display: inline-flex !important;
+  float: none !important;
+  clear: none !important;
+  width: auto !important;
 }
 
 body.erp-theme .erp-site-header .menu a {
@@ -211,6 +238,7 @@ body.erp-theme .erp-check-list {
 }
 
 body.erp-theme .erp-hero-panel {
+  background: var(--erp-white);
   color: var(--erp-text);
 }
 
