@@ -165,6 +165,30 @@ Si ton extension charge sa propre UI (boutons/cartes), elle ne doit plus être a
 3. Vide les caches (plugin cache, cache serveur, CDN) puis recharge la page d’accueil.
 4. Si tu es admin et que le shortcode est invalide, le thème affiche un message d’alerte dans la section devis.
 
+## Dépannage : page Boutique supprimée (WooCommerce)
+
+Si la page **Shop/Boutique** a été supprimée, WooCommerce perd sa page catalogue.
+
+### Réactiver rapidement la page Boutique
+1. Crée une nouvelle page WordPress (Pages > Ajouter), titre conseillé : **Boutique** (ou **Shop**).
+2. Publie la page (pas besoin de shortcode produit dans le contenu).
+3. Va dans **WooCommerce > Réglages > Produits > Général**.
+4. Dans **Page boutique**, sélectionne la nouvelle page créée.
+5. Enregistre.
+
+### Vérifications si la page reste vide
+1. Vérifie que des produits sont **publiés** (pas brouillon/privé).
+2. Vérifie le statut catalogue des produits (visibles dans la boutique).
+3. Vérifie qu’il n’y a pas de filtre de stock/catégorie qui masque tout.
+4. Va dans **WooCommerce > Statut > Outils** puis :
+   - régénère les tables/lookup produits,
+   - vide les transients WooCommerce.
+5. Va dans **Réglages > Permaliens** et clique **Enregistrer** (flush des permaliens).
+6. Vide le cache (plugin + serveur + CDN) puis recharge.
+
+### Option sûre : régénérer les pages WooCommerce officielles
+Dans **WooCommerce > Statut > Outils**, utilise l’outil pour créer les pages par défaut WooCommerce (Shop, Cart, Checkout, My account) si nécessaire.
+
 ## Message Codex sur les PR mises à jour hors Codex
 Message :
 > "Codex ne prend pas actuellement en charge la mise à jour des PR qui ont été mises à jour en dehors de Codex..."
