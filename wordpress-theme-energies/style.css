@@ -170,9 +170,41 @@ body.erp-theme .erp-site-header .erp-btn-outline {
 
 body.erp-theme .erp-site-header .erp-btn-outline:hover { color: var(--erp-white); }
 
+body.erp-theme .erp-language-switcher {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+}
+
+body.erp-theme .erp-language-switcher a {
+  color: var(--erp-text);
+}
+
 body.erp-theme .erp-check-list {
   margin: .5rem 0 0;
   padding-left: 1.2rem;
+}
+
+body.erp-theme .erp-hero-panel {
+  color: var(--erp-text);
+}
+
+body.erp-theme .erp-hero-panel h2 {
+  margin-top: .1rem;
+  margin-bottom: .4rem;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+body.erp-theme .erp-hero-panel p {
+  color: #2c414b;
+}
+
+body.erp-theme .erp-hero-panel-actions {
+  margin-top: .9rem;
+}
+
+body.erp-theme .erp-hero-panel :where(input, select, textarea, button) {
+  max-width: 100%;
 }
 
 body.erp-theme .erp-price {
@@ -231,4 +263,5 @@ body.erp-theme .erp-site-footer {
 @media (max-width: 768px) {
   body.erp-theme .erp-header-inner { flex-wrap: wrap; }
   body.erp-theme .erp-menu { flex-wrap: wrap; }
+  body.erp-theme .erp-language-switcher { order: 3; }
 }
