@@ -33,6 +33,15 @@
             ?>
         </nav>
 
+        <?php
+        $erp_language_switcher = erp_render_language_switcher();
+        if ($erp_language_switcher !== '') :
+            ?>
+            <div class="erp-language-switcher">
+                <?php echo $erp_language_switcher; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            </div>
+        <?php endif; ?>
+
         <a class="erp-btn erp-btn-outline" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Demander un devis', 'erp-theme'); ?></a>
     </div>
 </header>

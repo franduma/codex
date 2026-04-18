@@ -54,6 +54,18 @@ function erp_customize_register(WP_Customize_Manager $wp_customize): void {
         'section'     => 'erp_theme_options',
         'type'        => 'text',
     ]);
+
+    $wp_customize->add_setting('erp_language_switcher_shortcode', [
+        'default'           => '[gtranslate]',
+        'sanitize_callback' => 'wp_kses_post',
+    ]);
+
+    $wp_customize->add_control('erp_language_switcher_shortcode', [
+        'label'       => __('Shortcode sélecteur de langue', 'erp-theme'),
+        'description' => __('Exemple: [gtranslate]. Laissez vide pour masquer le switcher.', 'erp-theme'),
+        'section'     => 'erp_theme_options',
+        'type'        => 'text',
+    ]);
 }
 add_action('customize_register', 'erp_customize_register');
 
@@ -197,6 +209,23 @@ function erp_render_quote_shortcode(): string {
     }
 
     return '';
+}
+
+function erp_render_language_switcher(): string {
+    $shortcode = trim((string) get_theme_mod('erp_language_switcher_shortcode', '[gtranslate]'));
+
+    if ($shortcode === '') {
+        return '';
+    }
+
+    $tag = erp_normalize_shortcode_tag($shortcode);
+    if ($tag === '' || ! shortcode_exists($tag)) {
+        return '';
+    }
+
+    $output = do_shortcode($shortcode);
+
+    return trim($output) !== '' ? $output : '';
 }
 
 function erp_get_configurator_page_url(): string {
