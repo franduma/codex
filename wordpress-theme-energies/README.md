@@ -2,6 +2,86 @@
 
 Thème orienté **interface graphique professionnelle** pour un site solaire avec WooCommerce déjà en place.
 
+## Manuel de configuration (FR/EN)
+
+### 1) Utilité de chaque fichier du thème
+
+- `style.css`  
+  Déclare le thème (nom, version, auteur) et contient tous les styles visuels (header, menu, hero, boutons, cartes, responsive).  
+- `functions.php`  
+  Cœur fonctionnel du thème : enregistrement des menus, chargement CSS/JS, options dans le Customizer, CPT `erp_product`, métadonnées produit, shortcodes configurateur/sélecteur de langue, helper URL du configurateur.  
+- `header.php`  
+  En-tête global : logo, titre du site, menu principal, switch de langue (shortcode), bouton “Demander un devis”.  
+- `footer.php`  
+  Pied de page global : copyright + menu footer.  
+- `front-page.php`  
+  Page d’accueil : hero, bloc “Démarrage rapide”, sections produits et intégration WooCommerce.  
+- `woocommerce.php`  
+  Gabarit WooCommerce global (boutique, catégories, etc.).  
+- `archive-erp_product.php`  
+  Liste des produits du CPT `erp_product`.  
+- `single-erp_product.php`  
+  Fiche détail d’un produit CPT `erp_product`.  
+- `template-parts/content-product.php`  
+  Carte d’un produit (réutilisée dans les boucles).  
+- `page.php`  
+  Gabarit des pages WordPress standard.  
+- `index.php`  
+  Fallback général WordPress quand aucun template plus spécifique n’existe.  
+- `assets/js/main.js`  
+  JS du thème (comportements front).  
+
+### 2) Où modifier les textes
+
+#### Textes de la page d’accueil
+- Aller dans `front-page.php` pour modifier les textes hero, “Démarrage rapide”, “Vos univers produits”, etc.
+
+#### Textes globaux (header/footer)
+- Header : `header.php`
+- Footer : `footer.php`
+
+#### Textes WooCommerce / CPT
+- Archive CPT : `archive-erp_product.php`
+- Fiche CPT : `single-erp_product.php`
+- Carte produit : `template-parts/content-product.php`
+
+#### Textes admin / options / labels
+- Dans `functions.php` (labels du Customizer, CPT, métaboxes…).
+
+### 3) Activer la version française et anglaise (méthode recommandée)
+
+Le thème est prêt pour le multilingue :
+- les chaînes sont écrites avec `__('...','erp-theme')` / `esc_html_e(...)`;
+- le header peut afficher un sélecteur via shortcode (`erp_language_switcher_shortcode`).
+
+#### Étapes simples (avec GTranslate déjà prévu par le thème)
+1. Installer/activer le plugin de langue (ex: **GTranslate**).  
+2. Aller dans **Apparence > Personnaliser > Options Energies Renouvelables Pro**.  
+3. Vérifier **Shortcode sélecteur de langue** :
+   - valeur par défaut : `[gtranslate]`
+   - si vide, le switcher est masqué.
+4. Vérifier que le switcher apparaît dans le header.
+
+#### Pour un vrai contenu FR/EN distinct (pages différentes selon langue)
+Utiliser un plugin de traduction de contenu (Polylang, WPML, TranslatePress, etc.), puis :
+1. Créer la version FR et EN de chaque page importante (Accueil, Boutique, Contact, Configurateur…).  
+2. Créer un menu FR et un menu EN.
+3. Associer chaque menu à la langue dans le plugin.
+4. Vérifier le sélecteur de langue dans le header.
+
+### 4) Menus (important)
+
+Si vous avez déjà un menu avec toutes les pages :
+1. Aller dans **Apparence > Menus**.  
+2. Vérifier que ce menu est assigné à l’emplacement **Menu principal**.  
+3. (Optionnel) Créer un menu dédié FR et un menu dédié EN si plugin multilingue.
+
+### 5) Configurateur de devis
+
+1. Aller dans **Apparence > Personnaliser > Options Energies Renouvelables Pro**.  
+2. Régler **Shortcode configurateur devis** (ex: `[solithium-wizard]`).  
+3. Tester le bouton “Configurer mon besoin” sur l’accueil.
+
 ## Où sont les fichiers ?
 Dans ce dépôt, le thème est ici :
 - `wordpress-theme-energies/`
