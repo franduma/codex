@@ -387,3 +387,15 @@ function erp_i18n(string $french, string $english): string {
 
     return $french;
 }
+
+/**
+ * Prevent WooCommerce default shop title duplication.
+ */
+function erp_hide_default_shop_title(bool $show): bool {
+    if (function_exists('is_shop') && is_shop()) {
+        return false;
+    }
+
+    return $show;
+}
+add_filter('woocommerce_show_page_title', 'erp_hide_default_shop_title');

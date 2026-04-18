@@ -303,6 +303,11 @@ body.erp-theme .erp-shop-intro {
   margin-bottom: 1.2rem;
 }
 
+body.erp-theme .erp-woocommerce-card .erp-shop-title {
+  margin-top: 0;
+  margin-bottom: .9rem;
+}
+
 /* WooCommerce styles are scoped under theme wrapper to reduce plugin collisions. */
 body.erp-theme .woocommerce ul.products li.product,
 body.erp-theme .woocommerce-page ul.products li.product {

@@ -9,9 +9,17 @@ get_header();
 ?>
 <main class="erp-section">
     <div class="erp-container erp-woocommerce-container">
+        <article class="erp-card erp-woocommerce-card">
+        <?php
+        $shop_page_id = is_shop() ? wc_get_page_id('shop') : 0;
+
+        if (is_shop() && $shop_page_id > 0) :
+            ?>
+            <h1 class="erp-shop-title"><?php echo esc_html(get_the_title($shop_page_id)); ?></h1>
+        <?php endif; ?>
+
         <?php
         if (is_shop()) {
-            $shop_page_id = wc_get_page_id('shop');
             if ($shop_page_id > 0) {
                 $shop_page = get_post($shop_page_id);
                 if ($shop_page instanceof WP_Post && trim((string) $shop_page->post_content) !== '') {
@@ -38,6 +46,7 @@ get_header();
                 <?php esc_html_e('Vérifiez la publication, la visibilité catalogue et les traductions produits.', 'erp-theme'); ?>
             </p>
         <?php endif; ?>
+        </article>
     </div>
 </main>
 <?php
