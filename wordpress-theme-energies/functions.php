@@ -301,13 +301,33 @@ function erp_render_language_switcher(): string {
 }
 
 function erp_get_configurator_page_url(): string {
-    $configurator_page = get_page_by_path('configurateur-solaire');
+    $candidate_paths = [
+        'configurateur',
+        'configurateur-solaire',
+        'configurator',
+        'solar-configurator',
+    ];
 
-    if ($configurator_page instanceof WP_Post) {
-        return (string) get_permalink($configurator_page);
+    $configurator_page_id = 0;
+
+    foreach ($candidate_paths as $candidate_path) {
+        $candidate_page = get_page_by_path($candidate_path);
+        if ($candidate_page instanceof WP_Post) {
+            $configurator_page_id = (int) $candidate_page->ID;
+            break;
+        }
     }
 
-    return home_url('/#devis');
+    if ($configurator_page_id > 0) {
+        $translated_configurator_page_id = erp_get_translated_page_id($configurator_page_id);
+        $translated_permalink = get_permalink($translated_configurator_page_id);
+
+        if (is_string($translated_permalink) && $translated_permalink !== '') {
+            return $translated_permalink;
+        }
+    }
+
+    return home_url('/');
 }
 
 function erp_add_body_class(array $classes): array {
