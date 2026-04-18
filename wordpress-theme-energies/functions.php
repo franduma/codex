@@ -38,12 +38,12 @@ function erp_theme_assets(): void {
 add_action('wp_enqueue_scripts', 'erp_theme_assets');
 
 function erp_primary_menu_fallback(): void {
-    wp_page_menu([
-        'menu_class'  => 'erp-menu',
-        'show_home'   => false,
-        'depth'       => 1,
-        'echo'        => true,
+    echo '<ul class="erp-menu">';
+    wp_list_pages([
+        'title_li' => '',
+        'depth'    => 1,
     ]);
+    echo '</ul>';
 }
 
 function erp_customize_register(WP_Customize_Manager $wp_customize): void {
@@ -253,3 +253,74 @@ function erp_add_body_class(array $classes): array {
     return $classes;
 }
 add_filter('body_class', 'erp_add_body_class');
+
+/**
+ * Detect if current language/locale is English.
+ */
+function erp_is_english_language(): bool {
+    $request_language_keys = ['lang', 'language', 'gtranslate_lang'];
+
+    foreach ($request_language_keys as $request_language_key) {
+        if (isset($_GET[$request_language_key])) {
+            $request_language = strtolower(sanitize_text_field(wp_unslash($_GET[$request_language_key])));
+            if (str_starts_with($request_language, 'en')) {
+                return true;
+            }
+            if (str_starts_with($request_language, 'fr')) {
+                return false;
+            }
+        }
+    }
+
+    $cookie_language_keys = ['gtranslate_lang', 'gtranslate-language'];
+
+    foreach ($cookie_language_keys as $cookie_language_key) {
+        if (isset($_COOKIE[$cookie_language_key])) {
+            $cookie_language = strtolower(sanitize_text_field(wp_unslash($_COOKIE[$cookie_language_key])));
+            if (str_starts_with($cookie_language, 'en')) {
+                return true;
+            }
+            if (str_starts_with($cookie_language, 'fr')) {
+                return false;
+            }
+        }
+    }
+
+    if (isset($_COOKIE['googtrans'])) {
+        $googtrans = strtolower(sanitize_text_field(wp_unslash($_COOKIE['googtrans'])));
+        $googtrans_parts = explode('/', trim($googtrans, '/'));
+        $target_language = end($googtrans_parts);
+        if (is_string($target_language) && str_starts_with($target_language, 'en')) {
+            return true;
+        }
+        if (is_string($target_language) && str_starts_with($target_language, 'fr')) {
+            return false;
+        }
+    }
+
+    if (function_exists('pll_current_language')) {
+        $language = (string) pll_current_language('slug');
+        if ($language !== '') {
+            return str_starts_with($language, 'en');
+        }
+    }
+
+    if (defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE !== '') {
+        return str_starts_with((string) ICL_LANGUAGE_CODE, 'en');
+    }
+
+    $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+    return str_starts_with((string) $locale, 'en');
+}
+
+/**
+ * Return FR or EN copy depending on active language.
+ */
+function erp_i18n(string $french, string $english): string {
+    if (erp_is_english_language()) {
+        return $english;
+    }
+
+    return $french;
+}
