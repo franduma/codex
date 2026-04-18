@@ -199,6 +199,16 @@ function erp_render_quote_shortcode(): string {
     return '';
 }
 
+function erp_get_configurator_page_url(): string {
+    $configurator_page = get_page_by_path('configurateur-solaire');
+
+    if ($configurator_page instanceof WP_Post) {
+        return (string) get_permalink($configurator_page);
+    }
+
+    return home_url('/#devis');
+}
+
 function erp_add_body_class(array $classes): array {
     $classes[] = 'erp-theme';
 
