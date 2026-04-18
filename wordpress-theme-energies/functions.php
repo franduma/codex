@@ -399,3 +399,34 @@ function erp_hide_default_shop_title(bool $show): bool {
     return $show;
 }
 add_filter('woocommerce_show_page_title', 'erp_hide_default_shop_title');
+
+/**
+ * Resolve translated page ID for current language when Polylang/WPML is active.
+ */
+function erp_get_translated_page_id(int $page_id): int {
+    if ($page_id <= 0) {
+        return $page_id;
+    }
+
+    if (function_exists('pll_get_post')) {
+        $translated_id = (int) pll_get_post($page_id);
+        if ($translated_id > 0) {
+            return $translated_id;
+        }
+    }
+
+    $wpml_translated_id = apply_filters('wpml_object_id', $page_id, 'page', true);
+    if (is_numeric($wpml_translated_id) && (int) $wpml_translated_id > 0) {
+        return (int) $wpml_translated_id;
+    }
+
+    return $page_id;
+}
+
+/**
+ * Ensure WooCommerce "My account" page ID follows current language page mapping.
+ */
+function erp_translate_myaccount_page_id($page_id): int {
+    return erp_get_translated_page_id((int) $page_id);
+}
+add_filter('option_woocommerce_myaccount_page_id', 'erp_translate_myaccount_page_id');
