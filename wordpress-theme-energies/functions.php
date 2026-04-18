@@ -38,12 +38,12 @@ function erp_theme_assets(): void {
 add_action('wp_enqueue_scripts', 'erp_theme_assets');
 
 function erp_primary_menu_fallback(): void {
-    wp_page_menu([
-        'menu_class'  => 'erp-menu',
-        'show_home'   => false,
-        'depth'       => 1,
-        'echo'        => true,
+    echo '<ul class="erp-menu">';
+    wp_list_pages([
+        'title_li' => '',
+        'depth'    => 1,
     ]);
+    echo '</ul>';
 }
 
 function erp_customize_register(WP_Customize_Manager $wp_customize): void {
@@ -221,6 +221,69 @@ function erp_render_quote_shortcode(): string {
 }
 
 function erp_render_language_switcher(): string {
+    if (function_exists('pll_the_languages')) {
+        $languages = pll_the_languages([
+            'raw'           => 1,
+            'hide_if_empty' => 0,
+            'hide_current'  => 0,
+        ]);
+
+        if (is_array($languages) && $languages !== []) {
+            $items = [];
+
+            foreach ($languages as $language) {
+                if (! isset($language['url'], $language['slug'])) {
+                    continue;
+                }
+
+                $slug = strtolower((string) $language['slug']);
+                $label = strtoupper($slug);
+                $current_class = ! empty($language['current_lang']) ? ' is-current' : '';
+
+                $items[] = sprintf(
+                    '<li class="erp-language-item%s"><a href="%s" hreflang="%s">%s</a></li>',
+                    esc_attr($current_class),
+                    esc_url((string) $language['url']),
+                    esc_attr($slug),
+                    esc_html($label)
+                );
+            }
+
+            if ($items !== []) {
+                return '<ul class="erp-language-menu">' . implode('', $items) . '</ul>';
+            }
+        }
+    }
+
+    if (function_exists('icl_get_languages')) {
+        $languages = icl_get_languages('skip_missing=0');
+        if (is_array($languages) && $languages !== []) {
+            $items = [];
+
+            foreach ($languages as $language) {
+                if (! isset($language['url'], $language['language_code'])) {
+                    continue;
+                }
+
+                $code = strtolower((string) $language['language_code']);
+                $label = strtoupper($code);
+                $current_class = ! empty($language['active']) ? ' is-current' : '';
+
+                $items[] = sprintf(
+                    '<li class="erp-language-item%s"><a href="%s" hreflang="%s">%s</a></li>',
+                    esc_attr($current_class),
+                    esc_url((string) $language['url']),
+                    esc_attr($code),
+                    esc_html($label)
+                );
+            }
+
+            if ($items !== []) {
+                return '<ul class="erp-language-menu">' . implode('', $items) . '</ul>';
+            }
+        }
+    }
+
     $shortcode = trim((string) get_theme_mod('erp_language_switcher_shortcode', '[gtranslate]'));
 
     if ($shortcode === '') {
@@ -253,3 +316,117 @@ function erp_add_body_class(array $classes): array {
     return $classes;
 }
 add_filter('body_class', 'erp_add_body_class');
+
+/**
+ * Detect if current language/locale is English.
+ */
+function erp_is_english_language(): bool {
+    if (function_exists('pll_current_language')) {
+        $language = (string) pll_current_language('slug');
+        if ($language !== '') {
+            return str_starts_with($language, 'en');
+        }
+    }
+
+    if (defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE !== '') {
+        return str_starts_with((string) ICL_LANGUAGE_CODE, 'en');
+    }
+
+    $request_language_keys = ['lang', 'language', 'gtranslate_lang'];
+
+    foreach ($request_language_keys as $request_language_key) {
+        if (isset($_GET[$request_language_key])) {
+            $request_language = strtolower(sanitize_text_field(wp_unslash($_GET[$request_language_key])));
+            if (str_starts_with($request_language, 'en')) {
+                return true;
+            }
+            if (str_starts_with($request_language, 'fr')) {
+                return false;
+            }
+        }
+    }
+
+    $cookie_language_keys = ['gtranslate_lang', 'gtranslate-language'];
+
+    foreach ($cookie_language_keys as $cookie_language_key) {
+        if (isset($_COOKIE[$cookie_language_key])) {
+            $cookie_language = strtolower(sanitize_text_field(wp_unslash($_COOKIE[$cookie_language_key])));
+            if (str_starts_with($cookie_language, 'en')) {
+                return true;
+            }
+            if (str_starts_with($cookie_language, 'fr')) {
+                return false;
+            }
+        }
+    }
+
+    if (isset($_COOKIE['googtrans'])) {
+        $googtrans = strtolower(sanitize_text_field(wp_unslash($_COOKIE['googtrans'])));
+        $googtrans_parts = explode('/', trim($googtrans, '/'));
+        $target_language = end($googtrans_parts);
+        if (is_string($target_language) && str_starts_with($target_language, 'en')) {
+            return true;
+        }
+        if (is_string($target_language) && str_starts_with($target_language, 'fr')) {
+            return false;
+        }
+    }
+
+    $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+    return str_starts_with((string) $locale, 'en');
+}
+
+/**
+ * Return FR or EN copy depending on active language.
+ */
+function erp_i18n(string $french, string $english): string {
+    if (erp_is_english_language()) {
+        return $english;
+    }
+
+    return $french;
+}
+
+/**
+ * Prevent WooCommerce default shop title duplication.
+ */
+function erp_hide_default_shop_title(bool $show): bool {
+    if (function_exists('is_shop') && is_shop()) {
+        return false;
+    }
+
+    return $show;
+}
+add_filter('woocommerce_show_page_title', 'erp_hide_default_shop_title');
+
+/**
+ * Resolve translated page ID for current language when Polylang/WPML is active.
+ */
+function erp_get_translated_page_id(int $page_id): int {
+    if ($page_id <= 0) {
+        return $page_id;
+    }
+
+    if (function_exists('pll_get_post')) {
+        $translated_id = (int) pll_get_post($page_id);
+        if ($translated_id > 0) {
+            return $translated_id;
+        }
+    }
+
+    $wpml_translated_id = apply_filters('wpml_object_id', $page_id, 'page', true);
+    if (is_numeric($wpml_translated_id) && (int) $wpml_translated_id > 0) {
+        return (int) $wpml_translated_id;
+    }
+
+    return $page_id;
+}
+
+/**
+ * Ensure WooCommerce "My account" page ID follows current language page mapping.
+ */
+function erp_translate_myaccount_page_id($page_id): int {
+    return erp_get_translated_page_id((int) $page_id);
+}
+add_filter('option_woocommerce_myaccount_page_id', 'erp_translate_myaccount_page_id');
