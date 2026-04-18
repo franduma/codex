@@ -27,7 +27,7 @@
             wp_nav_menu([
                 'theme_location' => 'primary',
                 'container'      => false,
-                'fallback_cb'    => false,
+                'fallback_cb'    => 'erp_primary_menu_fallback',
                 'menu_class'     => 'erp-menu',
             ]);
             ?>
