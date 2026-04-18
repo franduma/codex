@@ -221,6 +221,69 @@ function erp_render_quote_shortcode(): string {
 }
 
 function erp_render_language_switcher(): string {
+    if (function_exists('pll_the_languages')) {
+        $languages = pll_the_languages([
+            'raw'           => 1,
+            'hide_if_empty' => 0,
+            'hide_current'  => 0,
+        ]);
+
+        if (is_array($languages) && $languages !== []) {
+            $items = [];
+
+            foreach ($languages as $language) {
+                if (! isset($language['url'], $language['slug'])) {
+                    continue;
+                }
+
+                $slug = strtolower((string) $language['slug']);
+                $label = strtoupper($slug);
+                $current_class = ! empty($language['current_lang']) ? ' is-current' : '';
+
+                $items[] = sprintf(
+                    '<li class="erp-language-item%s"><a href="%s" hreflang="%s">%s</a></li>',
+                    esc_attr($current_class),
+                    esc_url((string) $language['url']),
+                    esc_attr($slug),
+                    esc_html($label)
+                );
+            }
+
+            if ($items !== []) {
+                return '<ul class="erp-language-menu">' . implode('', $items) . '</ul>';
+            }
+        }
+    }
+
+    if (function_exists('icl_get_languages')) {
+        $languages = icl_get_languages('skip_missing=0');
+        if (is_array($languages) && $languages !== []) {
+            $items = [];
+
+            foreach ($languages as $language) {
+                if (! isset($language['url'], $language['language_code'])) {
+                    continue;
+                }
+
+                $code = strtolower((string) $language['language_code']);
+                $label = strtoupper($code);
+                $current_class = ! empty($language['active']) ? ' is-current' : '';
+
+                $items[] = sprintf(
+                    '<li class="erp-language-item%s"><a href="%s" hreflang="%s">%s</a></li>',
+                    esc_attr($current_class),
+                    esc_url((string) $language['url']),
+                    esc_attr($code),
+                    esc_html($label)
+                );
+            }
+
+            if ($items !== []) {
+                return '<ul class="erp-language-menu">' . implode('', $items) . '</ul>';
+            }
+        }
+    }
+
     $shortcode = trim((string) get_theme_mod('erp_language_switcher_shortcode', '[gtranslate]'));
 
     if ($shortcode === '') {
@@ -258,6 +321,17 @@ add_filter('body_class', 'erp_add_body_class');
  * Detect if current language/locale is English.
  */
 function erp_is_english_language(): bool {
+    if (function_exists('pll_current_language')) {
+        $language = (string) pll_current_language('slug');
+        if ($language !== '') {
+            return str_starts_with($language, 'en');
+        }
+    }
+
+    if (defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE !== '') {
+        return str_starts_with((string) ICL_LANGUAGE_CODE, 'en');
+    }
+
     $request_language_keys = ['lang', 'language', 'gtranslate_lang'];
 
     foreach ($request_language_keys as $request_language_key) {
@@ -296,17 +370,6 @@ function erp_is_english_language(): bool {
         if (is_string($target_language) && str_starts_with($target_language, 'fr')) {
             return false;
         }
-    }
-
-    if (function_exists('pll_current_language')) {
-        $language = (string) pll_current_language('slug');
-        if ($language !== '') {
-            return str_starts_with($language, 'en');
-        }
-    }
-
-    if (defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE !== '') {
-        return str_starts_with((string) ICL_LANGUAGE_CODE, 'en');
     }
 
     $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
