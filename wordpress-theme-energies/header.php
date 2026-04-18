@@ -33,6 +33,6 @@
             ?>
         </nav>
 
-        <a class="erp-btn erp-btn-outline" href="#devis"><?php esc_html_e('Demander un devis', 'erp-theme'); ?></a>
+        <a class="erp-btn erp-btn-outline" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Demander un devis', 'erp-theme'); ?></a>
     </div>
 </header>

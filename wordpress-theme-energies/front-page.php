@@ -15,7 +15,7 @@ get_header();
             <p><?php esc_html_e('Mettez en valeur vos panneaux, onduleurs, batteries et régulateurs MPPT avec un design professionnel orienté confiance et conversion.', 'erp-theme'); ?></p>
             <div class="erp-hero-actions">
                 <a class="erp-btn" href="#produits"><?php esc_html_e('Voir la boutique', 'erp-theme'); ?></a>
-                <a class="erp-btn erp-btn-outline" href="#devis"><?php esc_html_e('Configurer mon besoin', 'erp-theme'); ?></a>
+                <a class="erp-btn erp-btn-outline" href="<?php echo esc_url(erp_get_configurator_page_url()); ?>"><?php esc_html_e('Configurer mon besoin', 'erp-theme'); ?></a>
             </div>
         </div>
 
@@ -23,7 +23,7 @@ get_header();
             <h3><?php esc_html_e('Pourquoi ce thème ?', 'erp-theme'); ?></h3>
             <ul class="erp-check-list">
                 <li><?php esc_html_e('Design moderne compatible WooCommerce', 'erp-theme'); ?></li>
-                <li><?php esc_html_e('Section devis déjà connectée à votre shortcode', 'erp-theme'); ?></li>
+                <li><?php esc_html_e('Page dédiée au configurateur solaire', 'erp-theme'); ?></li>
                 <li><?php esc_html_e('Parcours clair pour générer des demandes qualifiées', 'erp-theme'); ?></li>
             </ul>
         </aside>
@@ -72,21 +72,5 @@ get_header();
     </div>
 </section>
 
-<section id="devis" class="erp-section erp-section-soft">
-    <div class="erp-container">
-        <h2><?php esc_html_e('Configurez votre projet en ligne', 'erp-theme'); ?></h2>
-        <p><?php esc_html_e('Votre configurateur de besoin est intégré ci-dessous pour accélérer la demande de devis.', 'erp-theme'); ?></p>
-        <div class="erp-card erp-quote-card">
-            <?php
-            $erp_quote_markup = erp_render_quote_shortcode();
-            if (! empty($erp_quote_markup)) {
-                echo $erp_quote_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            } else {
-                echo '<p>' . esc_html__('Le configurateur sera affiché ici après activation du shortcode.', 'erp-theme') . '</p>';
-            }
-            ?>
-        </div>
-    </div>
-</section>
 <?php
 get_footer();
